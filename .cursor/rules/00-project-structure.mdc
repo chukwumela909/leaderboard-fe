@@ -1,0 +1,54 @@
+---
+alwaysApply: true
+---
+# Leaderboard App: Project Structure and Conventions
+
+- The app uses Next.js App Router with TypeScript, Tailwind v4, and shadcn/ui. Core entry points:
+  - [src/app/layout.tsx](mdc:src/app/layout.tsx)
+  - [src/app/page.tsx](mdc:src/app/page.tsx)
+  - Global styles and CSS variables: [src/app/globals.css](mdc:src/app/globals.css)
+
+- Planned routes (App Router):
+  - Public
+    - `/` → Landing/marketing page
+    - `/auth/sign-in` → Email/password or provider sign-in page
+    - `/auth/sign-up` → Registration page
+    - `/auth/verify` → Email verification handoff/confirmation page
+  - Protected (requires auth)
+    - `/leaderboard` → Real-time user scores
+    - `/profile` → View/edit user profile
+
+- File locations (planned):
+  - Pages and route handlers
+    - [src/app/(public)/page.tsx](mdc:src/app/(public)/page.tsx)
+    - [src/app/(auth)/sign-in/page.tsx](mdc:src/app/(auth)/sign-in/page.tsx)
+    - [src/app/(auth)/sign-up/page.tsx](mdc:src/app/(auth)/sign-up/page.tsx)
+    - [src/app/(auth)/verify/page.tsx](mdc:src/app/(auth)/verify/page.tsx)
+    - [src/app/(protected)/leaderboard/page.tsx](mdc:src/app/(protected)/leaderboard/page.tsx)
+    - [src/app/(protected)/profile/page.tsx](mdc:src/app/(protected)/profile/page.tsx)
+    - [src/app/api/scores/route.ts](mdc:src/app/api/scores/route.ts) (GET/POST)
+    - [src/app/api/profile/route.ts](mdc:src/app/api/profile/route.ts) (GET/PATCH)
+  - Libraries and helpers
+    - [src/lib/validation.ts](mdc:src/lib/validation.ts)
+    - [src/lib/auth/server.ts](mdc:src/lib/auth/server.ts) (server-only helpers)
+    - [src/lib/auth/client.ts](mdc:src/lib/auth/client.ts) (client-only helpers)
+    - [src/lib/realtime.ts](mdc:src/lib/realtime.ts)
+    - [src/lib/types.ts](mdc:src/lib/types.ts)
+  - UI
+    - shadcn/ui components in [src/components/ui/](mdc:src/components/ui/)
+    - App-specific components in [src/components/](mdc:src/components/)
+
+- Rendering model
+  - Prefer React Server Components; only use `"use client"` for interactive UI or Web APIs.
+  - Data fetching in server components or Route Handlers. Avoid `useEffect` for data fetching.
+
+- State and URL
+  - Use `nuqs` for URL state on pages that require sorting, filtering, or pagination (e.g., `/leaderboard`).
+
+- Performance
+  - Optimize LCP via server-rendered, cached leaderboard shell; stream dynamic parts as necessary.
+  - Keep CLS low: fixed dimensions for avatars/images; avoid layout shift on data hydration.
+
+- Accessibility
+  - Use semantic HTML in pages and shadcn components; label inputs via [src/components/ui/label.tsx](mdc:src/components/ui/label.tsx).
+

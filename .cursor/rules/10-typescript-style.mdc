@@ -1,0 +1,28 @@
+---
+globs: *.ts,*.tsx
+---
+# TypeScript and React Conventions
+
+- Components
+  - Use functional components with named exports.
+  - Server components by default; mark client components explicitly with `"use client"`.
+
+- Types
+  - Prefer `interface` over `type` for object shapes and props.
+  - Export explicit prop interfaces for components.
+  - Avoid `any`; use discriminated unions or generics where helpful.
+
+- Naming
+  - Use descriptive names: `isLoading`, `hasError`, `userProfile`.
+  - Directories: lowercase-with-dashes (e.g., `components/auth-wizard`).
+
+- Code style
+  - Use the `function` keyword for pure functions.
+  - Favor declarative JSX; avoid deep conditional nesting.
+  - Extract helpers to `src/lib/*`.
+  - Avoid enums; use literal unions or maps.
+
+- UI and Tailwind
+  - Use shadcn/ui primitives; style via Tailwind classes.
+  - Keep class merging via `cn` helper from [src/lib/utils.ts](mdc:src/lib/utils.ts).
+

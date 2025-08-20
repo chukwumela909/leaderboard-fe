@@ -1,0 +1,25 @@
+---
+description: Real-time leaderboard behavior and data flow
+---
+# Real-time Leaderboard Rules
+
+- Data model (frontend interfaces)
+  - `Score`: `{ id: string; userId: string; value: number; createdAt: string }`
+  - `UserProfile`: `{ id: string; displayName: string; avatarUrl?: string }`
+
+- Fetching
+  - Initial render (server): fetch top scores and user profile server-side in `/leaderboard` page.
+  - Client hydration: subscribe to realtime updates for score inserts/updates.
+
+- Realtime transport
+  - Use a managed provider (e.g., Supabase Realtime or Pusher). Centralize setup in [src/lib/realtime.ts](mdc:src/lib/realtime.ts).
+  - Expose minimal client APIs: `subscribeToScores(onChange)`, `unsubscribeFromScores()`.
+
+- Mutations
+  - Upload score via server action or route handler [src/app/api/scores/route.ts](mdc:src/app/api/scores/route.ts) (POST).
+  - Validate payload on server; reject malformed or spoofed `userId`.
+
+- UI updates
+  - Apply optimistic UI for local user score submission; reconcile with server events.
+  - Keep list virtualization if score list grows large.
+

@@ -1,0 +1,26 @@
+---
+description: Auth flow, route protection, and email verification behavior
+---
+# Authentication, Verification, and Route Protection
+
+- Auth flow
+  - Sign Up → Verify Email → Sign In (if not auto-signed) → Redirect to `/leaderboard`.
+  - Sign In success always redirects to `/leaderboard`.
+
+- Email verification
+  - The `/auth/verify` page receives a token from the provider and finalizes verification, then redirects.
+  - Show clear status messages and fallbacks for expired/invalid tokens.
+
+- Route protection
+  - Public routes: `/`, `/auth/*`.
+  - Protected routes: `/leaderboard`, `/profile`.
+  - Implement a server-side guard in server components (check session in layout/segment loader). If unauthenticated, redirect to `/auth/sign-in` with `next` param.
+
+- Session access
+  - Server-only helpers in [src/lib/auth/server.ts](mdc:src/lib/auth/server.ts) expose `getCurrentUser()` and `requireUser()`.
+  - Client-only helpers in [src/lib/auth/client.ts](mdc:src/lib/auth/client.ts) expose `useSession()` for small interactive widgets.
+
+- Forms
+  - Use shadcn/ui `Input`, `Label`, and `Button` for sign-in/sign-up forms.
+  - Validate with server actions or route handlers; show field-level errors.
+

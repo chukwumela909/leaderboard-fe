@@ -1,0 +1,20 @@
+---
+globs: src/app/globals.css,src/app/layout.tsx,src/components/ui/*
+---
+# UI Theme and Design System
+
+- Colors
+  - Primary `#0057b7`, Secondary `#28A745`, Background `#fafafa`, Text `#272727`.
+  - Map these to CSS variables in [src/app/globals.css](mdc:src/app/globals.css) and ensure shadcn tokens use them.
+
+- Typography
+  - Prefer Gilroy; fallback to system fonts/Arial if Gilroy is unavailable.
+  - Declare font variables in `:root` and apply on `html`/`body` in [src/app/layout.tsx](mdc:src/app/layout.tsx).
+
+- Components
+  - Use shadcn/ui primitives. Keep spacing, radius, and shadows consistent via Tailwind tokens.
+  - Buttons: primary = solid primary color; secondary = outline with secondary accents.
+
+- Currency
+  - Display monetary values in Nigerian Naira (₦). Centralize formatting helper in `formatCurrency(amount: number, locale = "en-NG")` under [src/lib/validation.ts](mdc:src/lib/validation.ts) or a dedicated util.
+

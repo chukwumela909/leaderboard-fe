@@ -1,0 +1,20 @@
+---
+description: API contracts and route handlers for scores and profile
+---
+# API Contracts and Route Handlers
+
+- Scores
+  - Route: `/api/scores` ([src/app/api/scores/route.ts](mdc:src/app/api/scores/route.ts))
+    - GET: `?limit=50&cursor=...` → `{ data: Score[], nextCursor?: string }`
+    - POST: body `{ value: number }` → `{ data: Score }` (user inferred from session)
+
+- Profile
+  - Route: `/api/profile` ([src/app/api/profile/route.ts](mdc:src/app/api/profile/route.ts))
+    - GET: → `{ data: UserProfile }`
+    - PATCH: body `{ displayName?: string; avatarUrl?: string }` → `{ data: UserProfile }`
+
+- Implementation rules
+  - Validate input on server; never trust client-sent `userId`.
+  - Return typed responses with clear error codes and messages.
+  - Cache GET responses appropriately; avoid caching authenticated responses.
+
