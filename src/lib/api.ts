@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://n73qqv7oe6.execute-api.eu-west-1.amazonaws.com/dev/';
+const API_BASE_URL = 'https://y8f728c7m3.execute-api.eu-west-1.amazonaws.com/dev/';
 
 // API Types based on documentation
 export interface RegisterRequest {

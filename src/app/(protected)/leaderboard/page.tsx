@@ -14,7 +14,7 @@ type TopScoresResponse = {
 };
 
 export default function LeaderboardPage() {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001/dev";
+  const API_BASE_URL =  "https://y8f728c7m3.execute-api.eu-west-1.amazonaws.com/dev/";
   const url = `${API_BASE_URL}/api/leaderboard/top/90`;
 
   const [data, setData] = useState<TopScoresResponse | null>(null);
